@@ -32,11 +32,11 @@ elif args.current_location:
 		current_location = try_current_location.split('\n')[0].split(' ')[1] + ',' + try_current_location.split('\n')[1].split(' ')[1]
 		if debug:
 			print("Current location retrieved:", current_location)
-	except Exception, e:
-		if 'No such file or directory' in e:
-			print('You need the "whereami" executable in your path to use the --current_location option')
-		else:
-			print('Some unknown error occurred when trying to get the current location')
+	except FileNotFoundError:
+		print('You need the "whereami" executable in your path to use the --current_location option')
+		current_location = None
+	except:
+		print("Unexpected error:", sys.exc_info()[0])
 		sys.exit()
 else:
 	current_location = None
