@@ -2,37 +2,36 @@
 
 ### Useage
 
-You can list agencies, which is the top level:
+You can get data from a number of different agencies, not just SF MUNI.  To list them run the following:
 
 `python muni.py --list_agencies`
 
 
-You can then list routes for an agency...
+You can then list routes for a whatever agency you like by passing the agency name:
 
 `python muni.py --list_routes <agency_name>`
 
 
-...and then get the stops for the route you want...
+From there you can get the stops for the route you want by passing the agency, route, and direction (usually inbount or outbound):
 
 `python muni.py --list_stops <agency_name>~<route_name>~<direction>`
 
 
-You can list departure times for a specified stop name:
+You need to specify a stop name or code to get predictions:
 
 `python muni.py --list_times <agency_name>~<stop_name>`
 
-
-Or you can list departure times for a sepcified stop code:
+or
 
 `python muni.py --list_times <stop_code>`
 
 
 ### Location Stuff
 
-When fetching stop times, you can specify your location like so: 
+When fetching predictions, you can specify your location with a latitude and longitude pair: 
 `python muni.py --list_times 'SF-MUNI~Judah St and 23rd Ave' --location '37.785479,-122.396847'`
 
-If you're using a Mac and have the 'whoami' module in your path, you can use the `--current_location` option with no parameters to fetch coordinates automatically:
+If you're using a Mac and have the 'whoami' module in your path, you can use the `--current_location` option with no parameters to get latitude and longitue  automatically:
 `python muni.py --list_times 'SF-MUNI~Judah St and 23rd Ave' --current_location`
 
 
