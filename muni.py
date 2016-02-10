@@ -28,8 +28,8 @@ if args.location is not None:
 		print("Current location received:", current_location)
 elif args.current_location:
 	try:
-		try_current_location = check_output('whereami')
-		current_location = try_current_location.split('\n')[0].split(' ')[1] + ',' + try_current_location.split('\n')[1].split(' ')[1]
+		try_current_location = str(check_output('whereami'))
+		current_location = try_current_location.split('\\n')[0].split(' ')[1] + ',' + try_current_location.split('\\n')[1].split(' ')[1]
 		if debug:
 			print("Current location retrieved:", current_location)
 	except FileNotFoundError:
