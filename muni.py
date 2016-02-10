@@ -115,7 +115,7 @@ def print_departure_times():
 						routes_to_print[route]['stop_location'] = stop_location[0]
 		# Assuming all the stops returned for the stop requested are in the same location or at least very close
 		# This is so you don't have to call the Google Maps API too aggressively
-		stop_location = routes_to_print[routes_to_print.keys()[0]]['stop_location']
+		stop_location = routes_to_print[list(routes_to_print.keys())[0]]['stop_location']
 		time_to_walk_to_stop = average_time_walking(current_location,stop_location) / 60
 		if debug:
 			print('Time to walk to stop in minutes:', time_to_walk_to_stop)
