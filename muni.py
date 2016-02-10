@@ -69,14 +69,14 @@ def print_route_list():
 	if route_list[0][0].text.strip() == 'No Data Available':
 		print "No Data Available for agency", args.list_routes
 		sys.exit()
-	if route_list[0][0].attrib['HasDirection']:
+	elif route_list[0][0].attrib['HasDirection'] == True:
 		for route in route_list[0][0][0]:
 			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
 			for route_direction in route[0]:
 				print "\t", route_direction.attrib['Name']
 	else:
 		for route in route_list[0][0][0]:
-			print route.attrib['Name']
+			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
 
 
 def print_stop_list():
