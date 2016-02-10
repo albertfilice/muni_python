@@ -73,7 +73,7 @@ def print_route_list():
 		for route in route_list[0][0][0]:
 			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
 			for route_direction in route[0]:
-				print "\t", route_direction.attrib['Name']
+				print '\t', route_direction.attrib['Name'].encode("UTF-8")
 	else:
 		for route in route_list[0][0][0]:
 			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
