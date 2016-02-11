@@ -9,9 +9,9 @@ test_command="python muni.py --list_agencies"
 output=`python muni.py --list_agencies`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -30,9 +30,9 @@ test_command="python muni.py --list_routes 'AC Transit'"
 output=`python muni.py --list_routes 'AC Transit'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -42,9 +42,9 @@ test_command="python muni.py --list_routes BART"
 output=`python muni.py --list_routes BART`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -54,9 +54,9 @@ test_command="python muni.py --list_routes Caltrain"
 output=`python muni.py --list_routes Caltrain`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -66,9 +66,9 @@ test_command="python muni.py --list_routes 'Dumbarton Express'"
 output=`python muni.py --list_routes 'Dumbarton Express'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -78,9 +78,9 @@ test_command="python muni.py --list_routes LAVTA"
 output=`python muni.py --list_routes LAVTA`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -90,9 +90,9 @@ test_command="python muni.py --list_routes 'Marin Transit'"
 output=`python muni.py --list_routes 'Marin Transit'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -102,9 +102,9 @@ test_command="python muni.py --list_routes SamTrans"
 output=`python muni.py --list_routes SamTrans`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -114,9 +114,9 @@ test_command="python muni.py --list_routes SF-MUNI"
 output=`python muni.py --list_routes SF-MUNI`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -126,9 +126,9 @@ test_command="python muni.py --list_routes 'Vine (Napa County)'"
 output=`python muni.py --list_routes 'Vine (Napa County)'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -138,9 +138,9 @@ test_command="python muni.py --list_routes VTA"
 output=`python muni.py --list_routes VTA`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -150,9 +150,9 @@ test_command="python muni.py --list_routes WESTCAT"
 output=`python muni.py --list_routes WESTCAT`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -172,9 +172,9 @@ test_command="python muni.py --list_stops 'AC Transit~1~South'"
 output=`python muni.py --list_stops 'AC Transit~1~South'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -184,9 +184,9 @@ test_command="python muni.py --list_stops 'AC Transit~1~North'"
 output=`python muni.py --list_stops 'AC Transit~1~North'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -200,9 +200,9 @@ test_command="python muni.py --list_stops BART~747"
 output=`python muni.py --list_stops BART~747`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -216,9 +216,9 @@ test_command="python muni.py --list_stops 'Caltrain~BABY BULLET~NB'"
 output=`python muni.py --list_stops 'Caltrain~BABY BULLET~Nb'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -228,9 +228,9 @@ test_command="python muni.py --list_stops 'Caltrain~BABY BULLET~SB1'"
 output=`python muni.py --list_stops 'Caltrain~BABY BULLET~SB1'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -244,9 +244,9 @@ test_command="python muni.py --list_stops 'Dumbarton Express~DB~West'"
 output=`python muni.py --list_stops 'Dumbarton Express~DB~West'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -256,9 +256,9 @@ test_command="python muni.py --list_stops 'Dumbarton Express~DB~East'"
 output=`python muni.py --list_stops 'Dumbarton Express~DB~East'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -272,9 +272,9 @@ test_command="python muni.py --list_stops LAVTA~12~Eastbound"
 output=`python muni.py --list_stops LAVTA~12~Eastbound`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -285,9 +285,9 @@ test_command="python muni.py --list_stops LAVTA~1~LOOP"
 output=`python muni.py --list_stops LAVTA~1~LOOP`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -301,9 +301,9 @@ test_command="python muni.py --list_stops 'Marin Transit~113~1728'"
 output=`python muni.py --list_stops 'Marin Transit~113~1728'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -317,9 +317,9 @@ test_command="python muni.py --list_stops 'SamTrans~14~CLOCKWIS'"
 output=`python muni.py --list_stops 'SamTrans~14~CLOCKWIS'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -330,9 +330,9 @@ test_command="python muni.py --list_stops SamTrans~252~COUNTERC"
 output=`python muni.py --list_stops SamTrans~252~COUNTERC`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -346,9 +346,9 @@ test_command="python muni.py --list_stops SF-MUNI~N~Outbound"
 output=`python muni.py --list_stops SF-MUNI~N~Outbound`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -362,9 +362,9 @@ test_command="python muni.py --list_stops 'Vine (Napa County)~2~LP'"
 output=`python muni.py --list_stops 'Vine (Napa County)~2~LP'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -375,9 +375,9 @@ test_command="python muni.py --list_stops 'Vine (Napa County)~8~S'"
 output=`python muni.py --list_stops 'Vine (Napa County)~8~S'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -391,9 +391,9 @@ test_command="python muni.py --list_stops VTA~42~North"
 output=`python muni.py --list_stops VTA~42~North`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -407,9 +407,9 @@ test_command="python muni.py --list_stops 'WESTCAT~C3~TO COLLEGE'"
 output=`python muni.py --list_stops 'WESTCAT~C3~TO COLLEGE'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -420,9 +420,9 @@ test_command="python muni.py --list_stops 'WESTCAT~19~TO HILLTOP MALL'"
 output=`python muni.py --list_stops 'WESTCAT~19~TO HILLTOP MALL'`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
@@ -433,9 +433,9 @@ test_command="python muni.py --list_stops WESTCAT~10~LOOP"
 output=`python muni.py --list_stops WESTCAT~10~LOOP`
 output=`echo $output`
 if [[ "$output" == "$expected_result" ]] ; then
-	echo "PASS: $test_command"
+	printf "\e[32mPASS\e[0m: $test_command\n"
 else
-	echo "FAIL: $test_command"
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
 	echo $output
 	echo $expected_result
 fi
