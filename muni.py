@@ -68,21 +68,25 @@ def print_route_list():
 	if route_list[0][0].text.strip() == 'No Data Available':
 		print("No Data Available for agency", args.list_routes)
 		sys.exit()
-	if route_list[0][0].attrib['HasDirection']:
+	elif route_list[0][0].attrib['HasDirection'] == "True":
 		for route in route_list[0][0][0]:
 			print(route.attrib['Name'], '(' + route.attrib['Code'] + ')')
 			for route_direction in route[0]:
-				print("\t", route_direction.attrib['Name'])
+				print '\t', route_direction.attrib['Name'].encode("UTF-8")
 	else:
 		for route in route_list[0][0][0]:
-			print(route.attrib['Name'])
+			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
 
 
 def print_stop_list():
-	for stops in stop_list[0][0][0][0][0]:
-		print("Direction:", stops.attrib['Name'])
-		for stop in stops[0]:
-			print(stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')')
+	if stop_list[0][0].attrib['HasDirection'] == "True":
+		for stops in stop_list[0][0][0][0][0]:
+			print "Direction:", stops.attrib['Name']
+			for stop in stops[0]:
+				print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
+	else:
+		for stop in stop_list[0][0][0][0][0]:
+			print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
 
 
 def print_departure_times():
