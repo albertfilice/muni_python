@@ -166,3 +166,67 @@ else
 	echo $output
 	echo $expected_result
 fi
+
+echo ""
+echo ""
+echo "#################"
+echo "#  TEST SCRIPT  #"
+echo "# List le Stops #"
+echo "#################"
+echo ""
+echo "AC Transit"
+
+
+expected_result="Direction: Bay Fair BART International Blvd and 90th Av (50164) Telegraph Av and 32nd St (50411) Telegraph Av and 60th St (50422) E 14th St and 150th Av (50702) Broadway and 17th St 19th St BART Station (50958) E 14th St and Estabrook St (50976) Telegraph Av and 62nd St (51123) International Blvd and 85th Av (51154) Telegraph Av and Stuart St (51215) E 14th St and 141st Av (51228) International Blvd and 23rd Av (51287) International Blvd and 38th Av (51500) Telegraph Av and Dwight Way (51555) Durant Av and Ellsworth St (51584) Telegraph Av and 55th St (51851) Telegraph Av and 24th St (52220) International Blvd and 34th Av (52222) E 14th St and Toler Av (52238) International Blvd and 40th Av (52445) E 14th St and Best Av Dutton Av (52755) E 14th St and Castro St (52833) International Blvd and 52nd Av (52882) International Blvd and 62nd Av (53358) Telegraph Av and Alcatraz Av (53377) International Blvd and 64th Av (53383) International Blvd and 94th Av (53385) International Blvd and 29th Av (53599) International Blvd and 80th St (53974) Telegraph Av and 50th St (54111) International Blvd and High St (54333) Telegraph Av and 34th St (54334) International Blvd and 19th Av (54353) Telegraph Av and 36th St (54404) International Blvd and 46th Av (54435) Telegraph Av and 59th St (54499) 11th St and Madison St (54555) International Blvd and 104th Av (54666) Broadway and 19th St 19th St BART Station (54700) International Blvd and Hegenberger Rd (54888) Davis St and Hays St (54944) E 14th St and Cornwall Way (54959) San Leandro BART Station (55005) International Blvd and 87th Av (55075) Dana St and Haste St (55138) Telegraph Av and Aileen St (55139) E 14th St and Lorraine Blvd (55168) Telegraph Av and W Grand Av (55191) E 14th St and W Juana Av (55292) Telegraph Av and 27th St (55343) E 14th St and Bayfair Dr (55401) Telegraph Av and 52nd St (55425) E 14th St and San Leandro Blvd (55426) E 14th St and Bristol Blvd (55478) Telegraph Av and 30th St (55520) International Blvd and 14th Av (55528) Telegraph Av and Webster St (55529) Shattuck Av and Allston Way (55555) International Blvd and 5th Av (55568) International Blvd and 98th Av (55572) Telegraph Av and 40th St (55575) International Blvd and Havenscourt Blvd (55587) International Blvd and 82nd Av (55598) International Blvd and 69th Av (55636) E 14th St and San Leandro Hospital (55669) International Blvd and 102nd Av (55689) Center St and Shattuck Sq Berkeley BART Sta (55700) Telegraph Av and Prince St (55723) E 14th St and W Broadmoor Blvd (55752) Thomas L Berkley Way 20th St and Telegraph (55777) E 14th St and Durant Av (55805) Coelho Dr and Mooney Av (55810) International Blvd and 49th Av (55850) Telegraph Av and W Macarthur Blvd (55933) Telegraph Av and 45th St (55989) Shattuck Av and Kittredge St (55999) Telegraph Av and 58th St (56007) Bayfair BART Station (56333) International Blvd and 17th Av (56454) International Blvd and 8th Av (56522) E 14th St and Parrott St (56533) Durant Av and Shattuck Av (56555) Davis St and Hays St (56588) E 14th St and 148th Av (56632) International Blvd and 21st Av (56659) Broadway and 14th St 12th St BART Station (56666) International Blvd and 54th Av (56686) Telegraph Av and 44th St (56783) Telegraph Av and Ashby Av (57088) E 14th St and 144th Av (57117) Durant Av and Dana St (57555) 11th St and Broadway 12th St BART Station (57777) International Blvd and 2nd Av (57778) E 14th St and Stoakes Av (58252) Telegraph Av and Russell St (58330) International Blvd and 10th Av (58444) International Blvd and Fruitvale Av (58588) International Blvd and 26th Av (58666) 159th Av and E 14th St (58808) Telegraph Av and Parker St (58835) 11th St and Harrison St (58888) International Blvd and 57th Av (59535) International Blvd and 78th Av (59553) E 14th St and Fairmont Dr (59589) Telegraph Av and Derby St (59593) International Blvd and 100th Av (59795) E 14th St and W Estudillo Av (59966) International Blvd and Seminary Av (59990)"
+test_command="python muni.py --list_stops 'AC Transit~1~South'"
+output=`python muni.py --list_stops 'AC Transit~1~South'`
+output=`echo $output`
+if [[ "$output" == "$expected_result" ]] ; then
+	echo "PASS: $test_command"
+else
+	echo "FAIL: $test_command"
+	echo $output
+	echo $expected_result
+fi
+
+
+expected_result="Direction: Berkeley BART E 14th St and 153rd Av (50200) International Blvd and 26th Av (50666) International Blvd and 78th Av (50707) International Blvd and 2nd Av (50734) International Blvd and 46th Av (50755) E 14th St and 159th Av (50919) E 14th St and Estabrook St (50978) Telegraph Av and Stuart St (51005) Telegraph Av and Derby St (51015) International Blvd and 19th Av (51051) Telegraph Av and Bancroft Way (51078) Telegraph Av and Webster St (51114) Broadway and 19th St 19th St BART Station (51155) International Blvd and 57th Av (51161) Telegraph Av and Haste St (51244) Telegraph Av and 29th St (51331) International Blvd and 17th Av (51399) International Blvd and 100th Av (51445) International Blvd and 69th Av (51711) Telegraph Av and 55th St (51815) Broadway and 14th St (52111) Telegraph Av and 27th St (52235) Telegraph Av and Parker St (52250) Fulton St and Kittredge St (52280) E 14th St and 141st Av (52366) Telegraph Av and Russell St (52424) International Blvd and 62nd Av (52455) International Blvd and Seminary Av (52619) E 14th St and Begier Av (52656) Telegraph Av and 36th St (52774) E 14th St and Sybil Av (52866) Telegraph Av and 58th St (53008) Broadway and 17th St 19th St BART Station (53335) Bay Fair BART Station (53684) International Blvd and Havenscourt Blvd (53777) San Leandro BART Station (53999) International Blvd and 73rd Av (54000) International Blvd and 40th Av (54245) E 14th St and Broadmoor Blvd (54399) International Blvd and 64th Av (54522) E 14th St and Dutton Av (54545) International Blvd and 80th Av (54585) Bancroft Way and Ellsworth St (54655) E 14th St and Sunnyside Dr (54667) Davis St and Hays St (54944) International Blvd and 38th Av (54955) Telegraph Av and 59th St (55002) 12th St and Jackson St (55066) Telegraph Av and 62nd St (55136) Telegraph Av and 43rd St (55161) International Blvd and 54th Av (55188) Telegraph Av and 46th St (55258) E 14th St and Dolores Av (55266) Coelho Dr and Mooney Av (55311) Telegraph Av and 38th St (55375) International Blvd and Fruitvale Av (55449) International Blvd and 48th Av (55450) International Blvd and 14th Av (55518) E 14th St and 150th Av (55538) E 14th St and San Leandro Blvd (55540) International Blvd and 10th Av (55541) International Blvd and 82nd Av (55544) International Blvd and 104th Av (55545) 12th St and Oak St (55570) International Blvd and 98th Av (55588) Bancroft Way and Dana St (55593) Telegraph Av and Aileen St (55649) International Blvd and 87th Av (55695) Telegraph Av and W Grand Av (55748) International Blvd and Mitchell St (55782) 12th St and Fallon St (55840) Telegraph Av and 49th St (55885) International Blvd and 29th Av (55922) Telegraph Av and 34th St (56161) E 14th St and Joaquin Av (56226) International Blvd and Durant Av (56466) International Blvd and 23rd Av (56500) E 14th St and 143rd Av (56554) Davis St and Hays St (56588) Telegraph Av and Claremont Av (56646) Telegraph Av and 40th St (56665) E 14th St and Bayfair Dr (56767) E 14th St and 145th Av (57171) International Blvd and High St (57666) Telegraph Av and Dwight Way (57711) Telegraph Av and 31st St (57722) International Blvd and 90th Av (57775) Telegraph Av and Alcatraz Av (57788) Thomas L Berkley Way 20th St and Telegraph (57999) International Blvd and 34th Av (58000) 12th St and Webster St (58200) Telegraph Av and Prince St (58220) E 14th St and Blossom Way (58255) International Blvd and 21st Av (58688) 12th St and Harrison St (58858) International Blvd and 5th Av (58887) International Blvd and 8th Av (59155) E 14th St and 148th Av (59449) International Blvd and 94th Av (59533) International Blvd and 86th Av (59876) International Blvd and 52nd Av (59898) Telegraph Av and 24th St (59991) 12th St and Broadway (59995)"
+test_command="python muni.py --list_stops 'AC Transit~1~North'"
+output=`python muni.py --list_stops 'AC Transit~1~North'`
+output=`echo $output`
+if [[ "$output" == "$expected_result" ]] ; then
+	echo "PASS: $test_command"
+else
+	echo "FAIL: $test_command"
+	echo $output
+	echo $expected_result
+fi
+
+
+echo ""
+echo "BART"
+
+expected_result=""
+test_command=""
+output=``
+output=`echo $output`
+if [[ "$output" == "$expected_result" ]] ; then
+	echo "PASS: $test_command"
+else
+	echo "FAIL: $test_command"
+	echo $output
+	echo $expected_result
+fi
+
+
+expected_result=""
+test_command=""
+output=``
+output=`echo $output`
+if [[ "$output" == "$expected_result" ]] ; then
+	echo "PASS: $test_command"
+else
+	echo "FAIL: $test_command"
+	echo $output
+	echo $expected_result
+fi
