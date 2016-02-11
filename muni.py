@@ -113,7 +113,7 @@ def print_departure_times():
 		for route in routes_to_print:
 			if routes_to_print[route]['agency_name'] in stop_locations:
 				if debug:
-					print(routes_to_print[route]['agency_name'], "has list of stop locations")
+					print(str(routes_to_print[route]['agency_name']) + " has list of stop locations")
 				for stop_location in stop_locations[routes_to_print[route]['agency_name']]:
 					if routes_to_print[route]['stop_code'] == stop_location[1]:
 						routes_to_print[route]['stop_location'] = stop_location[0]
@@ -122,25 +122,25 @@ def print_departure_times():
 		stop_location = routes_to_print[list(routes_to_print.keys())[0]]['stop_location']
 		time_to_walk_to_stop = average_time_walking(current_location,stop_location) / 60
 		if debug:
-			print('Time to walk to stop in minutes:', time_to_walk_to_stop)
+			print('Time to walk to stop in minutes: ' + str(time_to_walk_to_stop))
 		for route in routes_to_print:
-			print(routes_to_print[route]['agency_name_decorated'], '|', routes_to_print[route]['route_name'], '|', routes_to_print[route]['direction_code'], '|', routes_to_print[route]['stop_name'])
+			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			for stop_time in routes_to_print[route]['stop_times']:
 				if stop_time - time_to_walk_to_stop < -15:
-					print(stop_time, '‼️ 🚷  More than 15 minutes late walking')
+					print(str(stop_time) + ' ‼️ 🚷  More than 15 minutes late walking')
 				elif stop_time - time_to_walk_to_stop < 0:
-					print(stop_time, '‼️ 🏇  Might make it if you jog')
+					print(str(stop_time) + ' ‼️ 🏇  Might make it if you jog')
 				elif stop_time - time_to_walk_to_stop < 2:
-					print(stop_time, '🏃💨  Less than 2 minute buffer')
+					print(str(stop_time) + ' 🏃💨  Less than 2 minute buffer')
 				elif stop_time - time_to_walk_to_stop < 5:
-					print(stop_time, '🏃  3 to 5 minute buffer')
+					print(str(stop_time) + ' 🏃  3 to 5 minute buffer')
 				elif stop_time - time_to_walk_to_stop < 10:
-					print(stop_time, '🚶  5 to 10 minute buffer')
+					print(str(stop_time) + ' 🚶  5 to 10 minute buffer')
 				else:
-					print(stop_time, '🐌  More than 10 minute buffer')
+					print(str(stop_time) + ' 🐌  More than 10 minute buffer')
 	else:
 		for route in routes_to_print:
-			print(routes_to_print[route]['agency_name_decorated'], '|', routes_to_print[route]['route_name'], '|', routes_to_print[route]['direction_code'], '|', routes_to_print[route]['stop_name'])
+			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			for stop_time in routes_to_print[route]['stop_times']:
 				print(stop_time)
 
