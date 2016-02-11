@@ -85,8 +85,12 @@ def print_stop_list():
 			for stop in stops[0]:
 				print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
 	else:
-		for stop in stop_list[0][0][0][0][0]:
-			print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
+		if len(stop_list[0][0]) == 0:
+			print("No results (you must specify a route code, not name, when calling an agency with no direction)")
+			sys.exit()
+		else:
+			for stop in stop_list[0][0][0][0][0]:
+				print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
 
 
 def print_departure_times():
