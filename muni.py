@@ -70,23 +70,23 @@ def print_route_list():
 		sys.exit()
 	elif route_list[0][0].attrib['HasDirection'] == "True":
 		for route in route_list[0][0][0]:
-			print(route.attrib['Name'], '(' + route.attrib['Code'] + ')')
+			print(str(route.attrib['Name']) + ' (' + str(route.attrib['Code']) + ')')
 			for route_direction in route[0]:
-				print '\t', route_direction.attrib['Name'].encode("UTF-8")
+				print("\t" + str(route_direction.attrib['Name'].encode("UTF-8")))
 	else:
 		for route in route_list[0][0][0]:
-			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
+			print(str(route.attrib['Name']) + ' (' + str(route.attrib['Code']) + ')')
 
 
 def print_stop_list():
 	if stop_list[0][0].attrib['HasDirection'] == "True":
 		for stops in stop_list[0][0][0][0][0]:
-			print "Direction:", stops.attrib['Name']
+			print("Direction: " + str(stops.attrib['Name']))
 			for stop in stops[0]:
-				print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
+				print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
 	else:
 		for stop in stop_list[0][0][0][0][0]:
-			print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
+			print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
 
 
 def print_departure_times():
