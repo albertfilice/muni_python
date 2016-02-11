@@ -1,6 +1,5 @@
 # -*- coding: UTF-8
 
-from __future__ import division
 from subprocess import check_output
 import sys
 import argparse
@@ -26,18 +25,18 @@ list_agencies = True if args.list_agencies else False
 if args.location is not None:
 	current_location = args.location
 	if debug:
-		print "Current location received:", current_location
+		print("Current location received:", current_location)
 elif args.current_location:
 	try:
-		try_current_location = check_output('whereami')
-		current_location = try_current_location.split('\n')[0].split(' ')[1] + ',' + try_current_location.split('\n')[1].split(' ')[1]
+		try_current_location = str(check_output('whereami'))
+		current_location = try_current_location.split('\\n')[0].split(' ')[1] + ',' + try_current_location.split('\\n')[1].split(' ')[1]
 		if debug:
-			print "Current location retrieved:", current_location
-	except Exception, e:
-		if 'No such file or directory' in e:
-			print 'You need the "whereami" executable in your path to use the --current_location option'
-		else:
-			print 'Some unknown error occurred when trying to get the current location'
+			print("Current location retrieved:", current_location)
+	except FileNotFoundError:
+		print('You need the "whereami" executable in your path to use the --current_location option')
+		current_location = None
+	except:
+		print("Unexpected error:", sys.exc_info()[0])
 		sys.exit()
 else:
 	current_location = None
@@ -49,45 +48,45 @@ stop_locations = {
 def average_time_walking(origin, destination):
 	request_url = 'https://maps.googleapis.com/maps/api/directions/json?key=AIzaSyBmuKnR_Knh0tVhr67KbNuLndgkWOjKXnY&origin=' + origin + '&destination=' + destination + '&mode=walking'
 	if debug:
-		print "Maps Request URL:", request_url
+		print("Maps Request URL:", request_url)
 	raw_location_data = requests.get(request_url)
 	json_location_data = raw_location_data.json()
 	walking_time_in_seconds = json_location_data['routes'][0]['legs'][0]['duration']['value']
 	if debug:
-		print "Duration:", walking_time_in_seconds
+		print("Duration:", walking_time_in_seconds)
 	return walking_time_in_seconds
 
 def print_agency_list():
 	for agency in agency_list[0]:
 		if agency.attrib['Mode'] == 'Bus':
-			print '🚌  ' + agency.attrib['Name']
+			print('🚌  ' + agency.attrib['Name'])
 		elif agency.attrib['Mode'] == 'Rail':
-			print '🚆  ' + agency.attrib['Name']
+			print('🚆  ' + agency.attrib['Name'])
 
 
 def print_route_list():
 	if route_list[0][0].text.strip() == 'No Data Available':
-		print "No Data Available for agency", args.list_routes
+		print("No Data Available for agency", args.list_routes)
 		sys.exit()
 	elif route_list[0][0].attrib['HasDirection'] == "True":
 		for route in route_list[0][0][0]:
-			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
+			print(str(route.attrib['Name']) + ' (' + str(route.attrib['Code']) + ')')
 			for route_direction in route[0]:
-				print '\t', route_direction.attrib['Name'].encode("UTF-8")
+				print("\t" + str(route_direction.attrib['Name'].encode("UTF-8")))
 	else:
 		for route in route_list[0][0][0]:
-			print route.attrib['Name'], '(' + route.attrib['Code'] + ')'
+			print(str(route.attrib['Name']) + ' (' + str(route.attrib['Code']) + ')')
 
 
 def print_stop_list():
 	if stop_list[0][0].attrib['HasDirection'] == "True":
 		for stops in stop_list[0][0][0][0][0]:
-			print "Direction:", stops.attrib['Name']
+			print("Direction: " + str(stops.attrib['Name']))
 			for stop in stops[0]:
-				print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
+				print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
 	else:
 		for stop in stop_list[0][0][0][0][0]:
-			print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
+			print(str(stop.attrib['name']) + ' (' + str(stop.attrib['StopCode']) + ')')
 
 
 def print_departure_times():
@@ -114,36 +113,36 @@ def print_departure_times():
 		for route in routes_to_print:
 			if routes_to_print[route]['agency_name'] in stop_locations:
 				if debug:
-					print routes_to_print[route]['agency_name'], "has list of stop locations"
+					print(str(routes_to_print[route]['agency_name']) + " has list of stop locations")
 				for stop_location in stop_locations[routes_to_print[route]['agency_name']]:
 					if routes_to_print[route]['stop_code'] == stop_location[1]:
 						routes_to_print[route]['stop_location'] = stop_location[0]
 		# Assuming all the stops returned for the stop requested are in the same location or at least very close
 		# This is so you don't have to call the Google Maps API too aggressively
-		stop_location = routes_to_print[routes_to_print.keys()[0]]['stop_location']
+		stop_location = routes_to_print[list(routes_to_print.keys())[0]]['stop_location']
 		time_to_walk_to_stop = average_time_walking(current_location,stop_location) / 60
 		if debug:
-			print 'Time to walk to stop in minutes:', time_to_walk_to_stop
+			print('Time to walk to stop in minutes: ' + str(time_to_walk_to_stop))
 		for route in routes_to_print:
-			print routes_to_print[route]['agency_name_decorated'], '|', routes_to_print[route]['route_name'], '|', routes_to_print[route]['direction_code'], '|', routes_to_print[route]['stop_name']
+			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			for stop_time in routes_to_print[route]['stop_times']:
 				if stop_time - time_to_walk_to_stop < -15:
-					print stop_time, '‼️ 🚷  More than 15 minutes late walking'
+					print(str(stop_time) + ' ‼️ 🚷  More than 15 minutes late walking')
 				elif stop_time - time_to_walk_to_stop < 0:
-					print stop_time, '‼️ 🏇  Might make it if you jog'
+					print(str(stop_time) + ' ‼️ 🏇  Might make it if you jog')
 				elif stop_time - time_to_walk_to_stop < 2:
-					print stop_time, '🏃💨  Less than 2 minute buffer'
+					print(str(stop_time) + ' 🏃💨  Less than 2 minute buffer')
 				elif stop_time - time_to_walk_to_stop < 5:
-					print stop_time, '🏃  3 to 5 minute buffer'
+					print(str(stop_time) + ' 🏃  3 to 5 minute buffer')
 				elif stop_time - time_to_walk_to_stop < 10:
-					print stop_time, '🚶  5 to 10 minute buffer'
+					print(str(stop_time) + ' 🚶  5 to 10 minute buffer')
 				else:
-					print stop_time, '🐌  More than 10 minute buffer'
+					print(str(stop_time) + ' 🐌  More than 10 minute buffer')
 	else:
 		for route in routes_to_print:
-			print routes_to_print[route]['agency_name_decorated'], '|', routes_to_print[route]['route_name'], '|', routes_to_print[route]['direction_code'], '|', routes_to_print[route]['stop_name']
+			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			for stop_time in routes_to_print[route]['stop_times']:
-				print stop_time
+				print(stop_time)
 
 
 base_request_url = 'http://services.my511.org/Transit2.0/'
@@ -152,7 +151,7 @@ api_token = '66b0f8d7-bf20-4aa6-be50-5f7580f9f2db'
 if list_agencies:
 	request_url = base_request_url + '/GetAgencies.aspx?token=' + api_token
 	if debug:
-		print 'Request URL:', request_url
+		print('Request URL:', request_url)
 	agency_list = ET.fromstring(requests.get(request_url).content)
 	print_agency_list()
 
@@ -160,7 +159,7 @@ if list_agencies:
 if args.list_routes is not None:
 	request_url = base_request_url + 'GetRoutesForAgency.aspx?token=' + api_token + '&agencyName=' + args.list_routes
 	if debug:
-		print 'Request URL:', request_url
+		print('Request URL:', request_url)
 	route_list = ET.fromstring(requests.get(request_url).content)
 	print_route_list()
 
@@ -168,7 +167,7 @@ if args.list_routes is not None:
 if route_idf is not None:
 	request_url = base_request_url + 'GetStopsForRoute.aspx?token=' + api_token + '&routeIDF=' + route_idf
 	if debug:
-		print 'Request URL:', request_url
+		print('Request URL:', request_url)
 	stop_list = ET.fromstring(requests.get(request_url).content)
 	print_stop_list()
 
@@ -176,7 +175,7 @@ if route_idf is not None:
 if stop_code is not None:
 	request_url = base_request_url + 'GetNextDeparturesByStopCode.aspx?token=' + api_token + '&StopCode=' + stop_code
 	if debug:
-		print 'Request URL:', request_url
+		print('Request URL:', request_url)
 	departure_times = ET.fromstring(requests.get(request_url).content)
 	print_departure_times()
 
@@ -184,6 +183,6 @@ if stop_code is not None:
 if stop_name is not None:
 	request_url = base_request_url + 'GetNextDeparturesByStopName.aspx?token=' + api_token + '&agencyName=' + stop_name.split('~')[0] + '&stopName=' + stop_name.split('~')[1]
 	if debug:
-		print 'Request URL:', request_url
+		print('Request URL:', request_url)
 	departure_times = ET.fromstring(requests.get(request_url).content)
 	print_departure_times()
