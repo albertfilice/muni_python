@@ -80,9 +80,13 @@ def print_route_list():
 
 
 def print_stop_list():
-	for stops in stop_list[0][0][0][0][0]:
-		print "Direction:", stops.attrib['Name']
-		for stop in stops[0]:
+	if stop_list[0][0].attrib['HasDirection'] == "True":
+		for stops in stop_list[0][0][0][0][0]:
+			print "Direction:", stops.attrib['Name']
+			for stop in stops[0]:
+				print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
+	else:
+		for stop in stop_list[0][0][0][0][0]:
 			print stop.attrib['name'], '(' + stop.attrib['StopCode'] + ')'
 
 
