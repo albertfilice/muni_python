@@ -10,7 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--debug", help="Add extra output to help debug a problem", action="store_true")
 parser.add_argument("--list_agencies", help="List all the agencies and exit", action="store_true")
 parser.add_argument("--list_routes", help="List all the routes for a specified agency")
-parser.add_argument("--list_stops", help="List all the stops for a route: <Agency>~<Route>~<Direction> (eg: SF-MUNI~1-California~Inbound)")
+parser.add_argument("--list_stops", help="List all the stops for a route: <Agency>~<RouteCode>~<Direction> (eg: SF-MUNI~1-California~Inbound)")
 parser.add_argument("--list_times_code", help="List the next departure times by stop code")
 parser.add_argument("--list_times", help="List the next departure times by agency and stop name: <Agency>~<StopName> (eg: SF-MUNI~Judah St and 23rd Ave)")
 group = parser.add_mutually_exclusive_group()
@@ -65,8 +65,11 @@ def print_agency_list():
 
 
 def print_route_list():
-	if route_list[0][0].text.strip() == 'No Data Available':
-		print("No Data Available for agency", args.list_routes)
+	if route_list.tag == "transitServiceError":
+		print("ERROR: " + str(stop_list.text))
+		sys.exit()
+	elif route_list[0][0].text.strip() == 'No Data Available':
+		print("No Data Available for agency: " + str(args.list_routes))
 		sys.exit()
 	elif route_list[0][0].attrib['HasDirection'] == "True":
 		for route in route_list[0][0][0]:
@@ -79,7 +82,10 @@ def print_route_list():
 
 
 def print_stop_list():
-	if stop_list[0][0].attrib['HasDirection'] == "True":
+	if stop_list.tag == "transitServiceError":
+		print("ERROR: " + str(stop_list.text))
+		sys.exit()
+	elif stop_list[0][0].attrib['HasDirection'] == "True":
 		for stops in stop_list[0][0][0][0][0]:
 			print("Direction: " + str(stops.attrib['Name']))
 			for stop in stops[0]:
