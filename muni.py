@@ -9,21 +9,27 @@ import xml.etree.ElementTree as ET
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--debug", help="Add extra output to help debug a problem", action="store_true")
 parser.add_argument("-e", "--emoji", help="Turn emoji output on", action="store_true")
-parser.add_argument("--list_agencies", help="List all the agencies and exit", action="store_true")
-parser.add_argument("--list_routes", help="List all the routes for a specified agency")
-parser.add_argument("--list_stops", help="List all the stops for a route: <Agency>~<RouteCode>~<Direction> (eg: SF-MUNI~1-California~Inbound)")
-parser.add_argument("--list_times_code", help="List the next departure times by stop code")
-parser.add_argument("--list_times", help="List the next departure times by agency and stop name: <Agency>~<StopName> (eg: SF-MUNI~Judah St and 23rd Ave)")
+parser.add_argument("--list-agencies", help="List all the agencies and exit", action="store_true")
+parser.add_argument("--list-routes", help="List all the routes for a specified agency")
+parser.add_argument("--list-stops", help="List all the stops for a route: <Agency>~<RouteCode>~<Direction> (eg: SF-MUNI~1-California~Inbound)")
+parser.add_argument("--list-times-code", help="List the next departure times by stop code")
+parser.add_argument("--list-times", help="List the next departure times by agency and stop name: <Agency>~<StopName> (eg: SF-MUNI~Judah St and 23rd Ave)")
+# Group the location options so only one can be used at a time
 group = parser.add_mutually_exclusive_group()
 group.add_argument("--location", help="Use supplied location to show walking speed based on Google Maps directions to stop: <latitude>,<longitude>")
-group.add_argument("--current_location", help="Use your current location to show walking speed based on Google Maps directions to stop", action="store_true")
+group.add_argument("--current-location", help="Use your current location to show walking speed based on Google Maps directions to stop", action="store_true")
+# Parse the options passed
 args = parser.parse_args()
-emoji = args.emoji
+# Assign the option values to variables
+debug = True if args.debug else False
+emoji = True if args.emoji else False
+list_agencies = True if args.list_agencies else False
+route_name = args.list_routes
 route_idf = args.list_stops
 stop_code = args.list_times_code
 stop_name = args.list_times
-debug = True if args.debug else False
-list_agencies = True if args.list_agencies else False
+
+# Sort out the location, using what is supplied or trying to run whereami command line utility
 if args.location is not None:
 	current_location = args.location
 	if debug:
@@ -74,7 +80,7 @@ def print_route_list():
 		print("ERROR: " + str(stop_list.text))
 		sys.exit()
 	elif route_list[0][0].text.strip() == 'No Data Available':
-		print("No Data Available for agency: " + str(args.list_routes))
+		print("No Data Available for agency: " + str(route_name))
 		sys.exit()
 	elif route_list[0][0].attrib['HasDirection'] == "True":
 		for route in route_list[0][0][0]:
@@ -177,8 +183,8 @@ if list_agencies:
 	print_agency_list()
 
 
-if args.list_routes is not None:
-	request_url = base_request_url + 'GetRoutesForAgency.aspx?token=' + api_token + '&agencyName=' + args.list_routes
+if route_name is not None:
+	request_url = base_request_url + 'GetRoutesForAgency.aspx?token=' + api_token + '&agencyName=' + route_name
 	if debug:
 		print('Request URL:', request_url)
 	route_list = ET.fromstring(requests.get(request_url).content)
