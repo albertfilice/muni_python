@@ -158,7 +158,10 @@ def print_departure_times():
 					print(str(stop_time) + ' 🐌  More than 10 minute buffer') if emoji else print(str(stop_time) + ' More than 10 minute buffer')
 	else:
 		for route in routes_to_print:
-			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+			if emoji:
+				print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+			else:
+				print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			for stop_time in routes_to_print[route]['stop_times']:
 				print(stop_time)
 

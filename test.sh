@@ -48,6 +48,20 @@ echo "#################" | tee -a "logs/templog.txt"
 echo "" | tee -a "logs/templog.txt"
 
 expected_result="🚌 AC Transit 🚆 BART 🚆 Caltrain 🚌 Dumbarton Express 🚌 LAVTA 🚌 Marin Transit 🚌 SamTrans 🚌 SF-MUNI 🚌 Vine (Napa County) 🚌 VTA 🚌 WESTCAT"
+test_command="${python_command} muni.py --list_agencies --emoji"
+output=`${python_command} muni.py --list_agencies --emoji`
+output=`echo $output`
+if [[ "$output" == "$expected_result" ]] ; then
+	printf "\e[32mPASS\e[0m: $test_command\n"
+	echo "PASS: $test_command" >> "logs/templog.txt"
+else
+	printf "\e[31;4mFAIL\e[0m: $test_command\n"
+	echo "FAIL: $test_command" >> "logs/templog.txt"
+	echo $output >> "logs/templog.txt"
+	echo $expected_result >> "logs/templog.txt"
+fi
+
+expected_result="AC Transit BART Caltrain Dumbarton Express LAVTA Marin Transit SamTrans SF-MUNI Vine (Napa County) VTA WESTCAT"
 test_command="${python_command} muni.py --list_agencies"
 output=`${python_command} muni.py --list_agencies`
 output=`echo $output`
@@ -60,7 +74,6 @@ else
 	echo $output >> "logs/templog.txt"
 	echo $expected_result >> "logs/templog.txt"
 fi
-
 
 
 
