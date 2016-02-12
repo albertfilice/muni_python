@@ -65,6 +65,11 @@ def average_time_walking(origin, destination):
 	return walking_time_in_seconds
 
 def print_agency_list():
+	request_url = base_request_url + '/GetAgencies.aspx?token=' + api_token
+	if debug:
+		print('Request URL:', request_url)
+	agency_list = ET.fromstring(requests.get(request_url).content)
+
 	for agency in agency_list[0]:
 		if emoji:
 			if agency.attrib['Mode'] == 'Bus':
@@ -80,7 +85,8 @@ def print_route_list():
 		print("ERROR: " + str(stop_list.text))
 		sys.exit()
 	elif route_list[0][0].text.strip() == 'No Data Available':
-		print("No Data Available for agency: " + str(route_name))
+		print("No Data Available for agency: \"" + str(route_name) + "\"; Possible options:")
+		print_agency_list()
 		sys.exit()
 	elif route_list[0][0].attrib['HasDirection'] == "True":
 		for route in route_list[0][0][0]:
@@ -179,10 +185,6 @@ base_request_url = 'http://services.my511.org/Transit2.0/'
 api_token = '66b0f8d7-bf20-4aa6-be50-5f7580f9f2db'
 
 if list_agencies:
-	request_url = base_request_url + '/GetAgencies.aspx?token=' + api_token
-	if debug:
-		print('Request URL:', request_url)
-	agency_list = ET.fromstring(requests.get(request_url).content)
 	print_agency_list()
 
 
