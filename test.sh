@@ -1,9 +1,7 @@
 #! /bin/bash
 
 # Create the logs directory if it doesn't exist
-if [ -d "logs" ] ; then
-	echo "Logs folder is there"
-else
+if [ ! -d "logs" ] ; then
 	echo "No logs folder, creating"
 	mkdir logs
 	if [ -d "logs" ] ; then
@@ -14,10 +12,13 @@ else
 	fi
 fi
 
+current_branch=`git branch | grep '*' | cut -f2- -d' '`
+
 # Clear the log file and write some basic info to the file
 echo "User:" `whoami` > "logs/templog.txt"
 echo "System:" `uname` >> "logs/templog.txt"
 echo "Default Python:" `python --version 2>&1` >> "logs/templog.txt"
+echo "Current branch: ${current_branch}" >> "logs/templog.txt"
 
 
 
@@ -533,4 +534,4 @@ fi
 
 # Now rename the log file
 timestamp=`date +%s`
-mv "logs/templog.txt" "logs/${timestamp}.txt"
+mv "logs/templog.txt" "logs/${timestamp}-${current_branch}.txt"
