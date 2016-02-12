@@ -8,6 +8,7 @@ import xml.etree.ElementTree as ET
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--debug", help="Add extra output to help debug a problem", action="store_true")
+parser.add_argument("-e", "--emoji", help="Turn emoji output on", action="store_true")
 parser.add_argument("--list_agencies", help="List all the agencies and exit", action="store_true")
 parser.add_argument("--list_routes", help="List all the routes for a specified agency")
 parser.add_argument("--list_stops", help="List all the stops for a route: <Agency>~<RouteCode>~<Direction> (eg: SF-MUNI~1-California~Inbound)")
@@ -17,6 +18,7 @@ group = parser.add_mutually_exclusive_group()
 group.add_argument("--location", help="Use supplied location to show walking speed based on Google Maps directions to stop: <latitude>,<longitude>")
 group.add_argument("--current_location", help="Use your current location to show walking speed based on Google Maps directions to stop", action="store_true")
 args = parser.parse_args()
+emoji = args.emoji
 route_idf = args.list_stops
 stop_code = args.list_times_code
 stop_name = args.list_times
@@ -58,10 +60,13 @@ def average_time_walking(origin, destination):
 
 def print_agency_list():
 	for agency in agency_list[0]:
-		if agency.attrib['Mode'] == 'Bus':
-			print('🚌  ' + agency.attrib['Name'])
-		elif agency.attrib['Mode'] == 'Rail':
-			print('🚆  ' + agency.attrib['Name'])
+		if emoji:
+			if agency.attrib['Mode'] == 'Bus':
+				print('🚌  ' + agency.attrib['Name'])
+			elif agency.attrib['Mode'] == 'Rail':
+				print('🚆  ' + agency.attrib['Name'])
+		else:
+			print(agency.attrib['Name'])
 
 
 def print_route_list():
@@ -134,20 +139,23 @@ def print_departure_times():
 		if debug:
 			print('Time to walk to stop in minutes: ' + str(time_to_walk_to_stop))
 		for route in routes_to_print:
-			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+			if emoji:
+				print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+			else:
+				print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			for stop_time in routes_to_print[route]['stop_times']:
 				if stop_time - time_to_walk_to_stop < -15:
-					print(str(stop_time) + ' ‼️ 🚷  More than 15 minutes late walking')
+					print(str(stop_time) + ' ‼️ 🚷  More than 15 minutes late walking') if emoji else print(str(stop_time) + ' More than 15 minutes late walking')
 				elif stop_time - time_to_walk_to_stop < 0:
-					print(str(stop_time) + ' ‼️ 🏇  Might make it if you jog')
+					print(str(stop_time) + ' ‼️ 🏇  Might make it if you jog') if emoji else print(str(stop_time) + ' Might make it if you jog')
 				elif stop_time - time_to_walk_to_stop < 2:
-					print(str(stop_time) + ' 🏃💨  Less than 2 minute buffer')
+					print(str(stop_time) + ' 🏃💨  Less than 2 minute buffer') if emoji else print(str(stop_time) + ' Less than 2 minute buffer')
 				elif stop_time - time_to_walk_to_stop < 5:
-					print(str(stop_time) + ' 🏃  3 to 5 minute buffer')
+					print(str(stop_time) + ' 🏃  3 to 5 minute buffer') if emoji else print(str(stop_time) + ' 3 to 5 minute buffer')
 				elif stop_time - time_to_walk_to_stop < 10:
-					print(str(stop_time) + ' 🚶  5 to 10 minute buffer')
+					print(str(stop_time) + ' 🚶  5 to 10 minute buffer') if emoji else print(str(stop_time) + ' 5 to 10 minute buffer')
 				else:
-					print(str(stop_time) + ' 🐌  More than 10 minute buffer')
+					print(str(stop_time) + ' 🐌  More than 10 minute buffer') if emoji else print(str(stop_time) + ' More than 10 minute buffer')
 	else:
 		for route in routes_to_print:
 			print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
