@@ -139,6 +139,7 @@ def print_departure_times():
 						stop_times.append(int(departure_time.text))
 			routes_to_print[route_name] = {'agency_name': agency_name, 'agency_name_decorated': agency_name_decorated, 'route_name': route_name, 'direction_code': direction_code, 'stop_name': stop_name, 'stop_code': stop_code, 'stop_times': stop_times}
 
+	# With location
 	if current_location is not None:
 		for route in routes_to_print:
 			if routes_to_print[route]['agency_name'] in stop_locations:
@@ -158,27 +159,34 @@ def print_departure_times():
 				print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			else:
 				print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
-			for stop_time in routes_to_print[route]['stop_times']:
-				if stop_time - time_to_walk_to_stop < -15:
-					print(str(stop_time) + ' ‼️ 🚷  More than 15 minutes late walking') if emoji else print(str(stop_time) + ' More than 15 minutes late walking')
-				elif stop_time - time_to_walk_to_stop < 0:
-					print(str(stop_time) + ' ‼️ 🏇  Might make it if you jog') if emoji else print(str(stop_time) + ' Might make it if you jog')
-				elif stop_time - time_to_walk_to_stop < 2:
-					print(str(stop_time) + ' 🏃💨  Less than 2 minute buffer') if emoji else print(str(stop_time) + ' Less than 2 minute buffer')
-				elif stop_time - time_to_walk_to_stop < 5:
-					print(str(stop_time) + ' 🏃  3 to 5 minute buffer') if emoji else print(str(stop_time) + ' 3 to 5 minute buffer')
-				elif stop_time - time_to_walk_to_stop < 10:
-					print(str(stop_time) + ' 🚶  5 to 10 minute buffer') if emoji else print(str(stop_time) + ' 5 to 10 minute buffer')
-				else:
-					print(str(stop_time) + ' 🐌  More than 10 minute buffer') if emoji else print(str(stop_time) + ' More than 10 minute buffer')
+			if len(routes_to_print[route]['stop_times']) == 0:
+				print("‼️ 🚷  No Current Predictions") if emoji else print("No Current Predictions")
+			else:
+				for stop_time in routes_to_print[route]['stop_times']:
+					if stop_time - time_to_walk_to_stop < -15:
+						print(str(stop_time) + ' ‼️ 🚷  More than 15 minutes late walking') if emoji else print(str(stop_time) + ' More than 15 minutes late walking')
+					elif stop_time - time_to_walk_to_stop < 0:
+						print(str(stop_time) + ' ‼️ 🏇  Might make it if you jog') if emoji else print(str(stop_time) + ' Might make it if you jog')
+					elif stop_time - time_to_walk_to_stop < 2:
+						print(str(stop_time) + ' 🏃💨  Less than 2 minute buffer') if emoji else print(str(stop_time) + ' Less than 2 minute buffer')
+					elif stop_time - time_to_walk_to_stop < 5:
+						print(str(stop_time) + ' 🏃  3 to 5 minute buffer') if emoji else print(str(stop_time) + ' 3 to 5 minute buffer')
+					elif stop_time - time_to_walk_to_stop < 10:
+						print(str(stop_time) + ' 🚶  5 to 10 minute buffer') if emoji else print(str(stop_time) + ' 5 to 10 minute buffer')
+					else:
+						print(str(stop_time) + ' 🐌  More than 10 minute buffer') if emoji else print(str(stop_time) + ' More than 10 minute buffer')
+	# Without location
 	else:
 		for route in routes_to_print:
 			if emoji:
 				print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			else:
 				print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
-			for stop_time in routes_to_print[route]['stop_times']:
-				print(stop_time)
+			if len(routes_to_print[route]['stop_times']) == 0:
+				print("‼️ 🚷 No Current Predictions") if emoji else print("No Current Predictions")
+			else:
+				for stop_time in routes_to_print[route]['stop_times']:
+					print(stop_time)
 
 
 base_request_url = 'http://services.my511.org/Transit2.0/'
