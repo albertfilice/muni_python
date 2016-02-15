@@ -118,7 +118,10 @@ def print_stop_list():
 
 def print_departure_times():
 	routes_to_print = {}
-	if departure_times[0][0].text.strip() == "No Predictions Available":
+	if departure_times.tag == "transitServiceError":
+		print("ERROR: " + str(departure_times.text))
+		sys.exit()
+	elif departure_times[0][0].text.strip() == "No Predictions Available":
 		print("No Predictions Available (check stop identifier)")
 		sys.exit()
 	for agency in departure_times[0]:
