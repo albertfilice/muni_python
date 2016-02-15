@@ -1,10 +1,19 @@
 # -*- coding: UTF-8
 
 from subprocess import check_output
+import platform
 import sys
 import argparse
 import requests
 import xml.etree.ElementTree as ET
+
+# Set up the OS variable
+if platform.system() == "Windows":
+	operating_system = "Windows"
+elif platform.system() == "Darwin":
+	operating_system = "OSX"
+elif platform.system() == "Linux":
+	operating_system = "Linux"
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-d", "--debug", help="Add extra output to help debug a problem", action="store_true")
@@ -22,7 +31,13 @@ group.add_argument("--current-location", help="Use your current location to show
 args = parser.parse_args()
 # Assign the option values to variables
 debug = True if args.debug else False
-emoji = True if args.emoji else False
+if args.emoji == True and operating_system == "OSX":
+	emoji = True
+elif args.emoji == True and operating_system is not "OSX":
+	print("Emoji currently only supported on OSX")
+	sys.exit()
+else:
+	emoji = False
 list_agencies = True if args.list_agencies else False
 route_name = args.list_routes
 route_idf = args.list_stops
