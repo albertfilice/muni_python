@@ -35,4 +35,35 @@ If you're using a Mac and have the 'whoami' module in your path, you can use the
 `python muni.py --list-times 'SF-MUNI~Judah St and 23rd Ave' --current-location`
 
 
+### Emoji  ✨
+
+You can add `-e` or `--emoji` to get emoji in the output of some commands, notably when listing agencies and stop predictions.
+
+`python muni.py --list-agencies -e`
+
+	🚌  AC Transit
+	🚆  BART
+	🚆  Caltrain
+	🚌  Dumbarton Express
+	🚌  LAVTA
+	🚌  Marin Transit
+	🚌  SamTrans
+	🚌  Santa Rosa CityBus
+	🚌  SF-MUNI
+	🚌  Vine (Napa County)
+	🚌  VTA
+	🚌  WESTCAT
+
+
+`$ python muni.py --list-times-code '13084' -e --current-location`
+
+	🚌  SF-MUNI | 10-Townsend | Outbound | Broadway and Montgomery St
+	18 ‼️ 🏇  Might make it if you jog
+	38 🐌  More than 10 minute buffer
+	58 🐌  More than 10 minute buffer
+	🚌  SF-MUNI | 12-Folsom Pacific | Outbound | Broadway and Montgomery St
+	6 ‼️ 🚷  More than 15 minutes late walking
+	27 🚶  5 to 10 minute buffer
+	47 🐌  More than 10 minute buffer
+
 More details to come...
