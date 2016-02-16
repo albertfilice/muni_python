@@ -261,6 +261,9 @@ if stop_code is not None:
 
 
 if stop_name is not None:
+	if len(stop_name.split('~')) is not 2:
+		print("You need to pass a agency name and stop name seperated by a tide >> '~'")
+		sys.exit()
 	request_url = base_request_url + 'GetNextDeparturesByStopName.aspx?token=' + api_token + '&agencyName=' + stop_name.split('~')[0] + '&stopName=' + stop_name.split('~')[1]
 	if debug:
 		print('Request URL:', request_url)
