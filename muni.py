@@ -141,21 +141,31 @@ def print_departure_times():
 		sys.exit()
 	for agency in departure_times[0]:
 		agency_name = agency.attrib['Name']
+		has_direction = agency.attrib['HasDirection']
 		if agency.attrib['Mode'] == 'Bus':
 			agency_name_decorated = '🚌  ' + agency.attrib['Name']
 		elif agency.attrib['Mode'] == 'Rail':
 			agency_name_decorated =  '🚆  ' + agency.attrib['Name']
 		for route in agency[0]:
 			route_name = route.attrib['Name']
-			for direction in route[0]:
-				direction_code = direction.attrib['Code']
-				for stop in direction[0]:
-					stop_name = stop.attrib['name']
-					stop_code = stop.attrib['StopCode']
-					stop_times = []
-					for departure_time in stop[0]:
-						stop_times.append(int(departure_time.text))
-			routes_to_print[route_name] = {'agency_name': agency_name, 'agency_name_decorated': agency_name_decorated, 'route_name': route_name, 'direction_code': direction_code, 'stop_name': stop_name, 'stop_code': stop_code, 'stop_times': stop_times}
+			if has_direction == "False":
+				for stop in route[0]:
+						stop_name = stop.attrib['name']
+						stop_code = stop.attrib['StopCode']
+						stop_times = []
+						for departure_time in stop[0]:
+							stop_times.append(int(departure_time.text))
+				routes_to_print[route_name] = {'agency_name': agency_name, 'agency_name_decorated': agency_name_decorated, 'route_name': route_name, 'stop_name': stop_name, 'stop_code': stop_code, 'stop_times': stop_times}
+			else:
+				for direction in route[0]:
+					direction_code = direction.attrib['Code']
+					for stop in direction[0]:
+						stop_name = stop.attrib['name']
+						stop_code = stop.attrib['StopCode']
+						stop_times = []
+						for departure_time in stop[0]:
+							stop_times.append(int(departure_time.text))
+				routes_to_print[route_name] = {'agency_name': agency_name, 'agency_name_decorated': agency_name_decorated, 'route_name': route_name, 'direction_code': direction_code, 'stop_name': stop_name, 'stop_code': stop_code, 'stop_times': stop_times}
 
 	# With location
 	if current_location is not None:
@@ -174,9 +184,15 @@ def print_departure_times():
 			print('Time to walk to stop in minutes: ' + str(time_to_walk_to_stop))
 		for route in routes_to_print:
 			if emoji:
-				print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				if has_direction == "True":
+					print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				else:
+					print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			else:
-				print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				if has_direction == "True":
+					print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				else:
+					print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			if len(routes_to_print[route]['stop_times']) == 0:
 				print("‼️ 🚷  No Current Predictions") if emoji else print("No Current Predictions")
 			else:
@@ -197,11 +213,17 @@ def print_departure_times():
 	else:
 		for route in routes_to_print:
 			if emoji:
-				print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				if has_direction == "True":
+					print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				else:
+					print(str(routes_to_print[route]['agency_name_decorated']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			else:
-				print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				if has_direction == "True":
+					print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['direction_code']) + ' | ' + str(routes_to_print[route]['stop_name']))
+				else:
+					print(str(routes_to_print[route]['agency_name']) + ' | ' + str(routes_to_print[route]['route_name']) + ' | ' + str(routes_to_print[route]['stop_name']))
 			if len(routes_to_print[route]['stop_times']) == 0:
-				print("‼️ 🚷 No Current Predictions") if emoji else print("No Current Predictions")
+				print("‼️ 🚷  No Current Predictions") if emoji else print("No Current Predictions")
 			else:
 				for stop_time in routes_to_print[route]['stop_times']:
 					print(stop_time)
