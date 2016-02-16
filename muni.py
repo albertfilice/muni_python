@@ -74,6 +74,9 @@ def average_time_walking(origin, destination):
 		print("Maps Request URL:", request_url)
 	raw_location_data = requests.get(request_url)
 	json_location_data = raw_location_data.json()
+	if json_location_data['geocoded_waypoints'][0]['geocoder_status'] == 'ZERO_RESULTS':
+		print('No location results for the coordinates you specified.')
+		sys.exit()
 	walking_time_in_seconds = json_location_data['routes'][0]['legs'][0]['duration']['value']
 	if debug:
 		print("Duration:", walking_time_in_seconds)
