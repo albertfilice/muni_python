@@ -121,6 +121,9 @@ def print_stop_list():
 		print("ERROR: " + str(stop_list.text))
 		sys.exit()
 	elif stop_list[0][0].attrib['HasDirection'] == "True":
+		if len(stop_list[0][0]) == 0:
+			print("No results returned, check your stop code")
+			sys.exit()
 		for stops in stop_list[0][0][0][0][0]:
 			print("Direction: " + str(stops.attrib['Name']))
 			for stop in stops[0]:
